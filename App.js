@@ -11,7 +11,6 @@ export default function App() {
 
 
   useEffect(()=>{
-
     async function fonts() {
       await Font.loadAsync({
         'Roboto': require('native-base/Fonts/Roboto.ttf'),
@@ -21,7 +20,7 @@ export default function App() {
       setTimeout(() => {
         setFont(false)
         
-      }, 3000);
+      }, 1000);
     
     }
    fonts()
@@ -30,9 +29,9 @@ export default function App() {
 
   if (font) {
     return (
-      <View style={{backgroundColor:"none",flex:1, justifyContent:"center",alignItems:'center'}}>
-        <Image source={require('./assets/loadeer.jpg')} style={{width:200,height:200,resizeMode:"contain"}}/>
-      </View>
+      <View style={{backgroundColor:"#fff",flex:1, justifyContent:"center",alignItems:'center'}}>
+      <Image source={require('./assets/loading.gif')} style={{width:200,height:200,resizeMode:"contain"}}/>
+    </View>
     );
   }
   else if(!font){

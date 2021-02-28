@@ -2,31 +2,15 @@
   "expo": {
     "name": "hackathon",
     "slug": "hackathon",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+     "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "android": {
+          "package": "com.sameershoukat.hackaton"
+        }
+      },
+      "android": {
+        "package": "com.myBlood.hackaton",
+        "versionCode": 1
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
-  }
-}

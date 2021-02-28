@@ -15,12 +15,11 @@ export default function Login({ navigation } ){
     const[userData , setUserData]=useState({});
     const [showSignIn, setShowSignIn]=useState(true);
     const [showSignUp, setShowSignUp]=useState(false);
-    const [loading, setLoading] =  useState(true)
+    const [loading, setLoading] =  useState(false)
    
    
     useEffect(()=>{
-     // getData();
-     setLoading(false)
+     getData();
     },[])
    
     const showSignUpButton = async()=>{
@@ -52,18 +51,22 @@ export default function Login({ navigation } ){
         var makingKey = logEmail.replace('.','')
         firebase.database().ref('/users/').once('value').then((snapshot) => {
             if (snapshot.child(makingKey).val()) {
-                console.log(snapshot.child(makingKey).val())
-               firebase.database().ref('/users/' + makingKey).once('value').then((snapshot) => {
+              var data = snapshot.child(makingKey).val()
+            firebase.database().ref('/users/' + makingKey).once('value').then((snapshot) => {
                 if( logEmail != snapshot.val().email){
                     alert("email is not correct")
+                    setLoading(false)
                 }
                 else if(logPassword != snapshot.val().password){
                     alert("password is not correct")
+                    setLoading(false)
                 }
                 else if(SIaccountType != snapshot.val().accountType){
                     alert("account type is not correct")
+                    setLoading(false)
                 }
                 else{
+                  storeData(data)
                     setLogEmail('');
                     setLogPassword('');
                     navigation.navigate('Home',{SIaccountType});
@@ -108,35 +111,38 @@ let insertUser = ()=>{
        var users = {
         email: email,
         password : password,
-        accountType : SUaccountType
+        accountType : SUaccountType,
+        id : makingKey
        }
     firebase.database().ref('users/'+ makingKey).set(users)
     }
+    
     })
     alert("Account Has Been Created")
     showSignInButton()
+   
    }
 }
 
 
-
-
-   
-
-
 const storeData = async (value) => {
   try {
-    const jsonValue = JSON.stringify(value)
-    await AsyncStorage.setItem('@college_key', jsonValue)
+    await AsyncStorage.setItem('@college_key', JSON.stringify(value))
+    console.log('save')
   } catch (e) {
     // saving error
   }
 }
 const getData = async () => {
   try {
+    setLoading(true)
     const jsonValue = await AsyncStorage.getItem('@college_key')
-    if(jsonValue != null){
-      navigation.navigate('Home')
+    var myValue = JSON.parse(jsonValue)
+    if(myValue != null){
+     navigation.navigate('Home',{myValue});
+     setTimeout(() => {
+      setLoading(false)  
+     }, 2000);  
     }
     else{
       setLoading(false)

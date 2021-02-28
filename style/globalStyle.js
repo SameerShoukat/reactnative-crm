@@ -30,9 +30,9 @@ export const globalStyles = StyleSheet.create({
     marginBottom:5,
   },
   profile:{
-    width:140,
-    height:120,
-    marginLeft:15,
+    width:110,
+    height:100,
+    marginLeft:25,
     resizeMode:"cover"
   },
   comment:{
